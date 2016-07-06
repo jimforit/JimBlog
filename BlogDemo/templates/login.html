@@ -1,0 +1,49 @@
+{% extends "top.html"%}
+{%block page-content%}
+    <!--用户登录-->
+    <div id="wrap">
+        <div class="container" id="main">
+            <div class="row">
+                <div class="panel panel-default panel-amend col-md-4 col-md-offset-3" id="limit-login-logout-width">
+                    <form class="panel-body" role="form" method="post" action="/login/"><input type="hidden" name="csrfmiddlewaretoken" value="gc5jLnQC6XvvNBNx5p6ApGqcpipdczJN">
+                        <h2 class="text-center">用户登录</h2>
+                        <div class="form-group">
+                            <label class="username_label_title">用户名</label>
+                            <div class="username_input">
+                                <input class="form-control" id="username" name="username" type="text" required="" oninvalid="setCustomValidity(&#39;用户名不能为空！&#39;)" oninput="setCustomValidity(&#39;&#39;)">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="password_label_title">密码</label>
+                            <div class="password_input">
+                                <input class="form-control" id="password" name="password" type="password" required="" oninvalid="setCustomValidity(&#39;密码不能为空！&#39;)" oninput="setCustomValidity(&#39;&#39;)">
+                            </div>
+                        </div>
+                        <div class="login-register">
+                            <button class="btn btn-success" type="submit">登录</button>
+                            <a class="btn btn-link" href="/register/">注册？</a>
+                            <a class="btn btn-link" href="/retrievepasswd/">忘记密码?</a>
+                            <p><span class="login-register-error">{{login_err}}</span></p>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+ <!--定义子模板可以继承的网站中间部分的内容块-->
+    <!--底部代码开始-->
+    <footer class="footer-color nav-footer-color" id="footer">
+        <div class="container clearfix">
+            <div class="text-muted pull-left">
+                   <p id="text-color">JimBlog</p>
+            </div>
+            <p class="muted credit pull-right" id="text-color">
+                ©<time>2016</time> Powered by Jim
+            </p>
+        </div>
+    </footer>
+    <!--底部代码结束-->
+    <script src="../static/jquery-2.1.1.min.js"></script>
+    <script src="../static/bootstrap.min.js"></script>
+    <!--定义子模板可以继承的js块-->
+{%endblock%}

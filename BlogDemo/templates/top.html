@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<!-- saved from url=(0021)http://www.aeflt.net/ -->
+<html lang="zh-CN"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <!--<meta name="viewport" content="width=device-width, initial-scale=1">-->
+      <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+      <title>MyBlog</title>
+      <link rel="icon" href="http://www.aeflt.net/static/img/aef.ico" type="‘image/x-ico’">
+      <link href="../static/bootstrap.min.css" rel="stylesheet">
+      <link href="../static/navbar-fixed-top.css" rel="stylesheet">
+      <link href="../static/customize.css" rel="stylesheet">
+       <!--定义子模板可以继承的CSS块-->
+  </head>
+
+  <body>
+    <!--导航条部分代码开始-->
+    <nav class="navbar navbar-inverse nav-footer-color navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="/home/" style="color:#fff">JimBlog	</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">
+              <li class="active"><a href="/home/">主页</a></li>
+          </ul>
+          <ul class="nav navbar-nav navbar-right">
+              <form class="navbar-form navbar-left" role="search" method="get" action="/article_search/">
+                    <div class="form-group">
+                        <input type="text" id="search_key" name="search_key" class="form-control search_input" placeholder="输入搜索关键字" required="" oninvalid="setCustomValidity(&#39;搜索关键字不能为空!&#39;)" oninput="setCustomValidity(&#39;&#39;)">
+                    </div>
+                    <button type="submit" class="btn btn-default search_btn">搜索</button>
+              </form>
+			  {% if comment_count_user %}
+			  <li class="dropdown">
+                    <a href="#" class="btn btn-default dropdown-toggle info-number" data-toggle="dropdown">
+                        <i class="fa fa-envelope-o"></i>
+                        <span class="badge">{{comment_count_user}}</span>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-head pull-right">
+                        <h5 class="title">您有{{comment_count_user}}条新评论 </h5>
+						{%for comments in comment_list_user%}
+							<span class="list-group-item">
+                                    <a href="{%url 'comment_detail_page' comments.pk%}"><span class="thumb"><img src="../static/7c93baa4-056c-11e6-8212-000c2919e245.jpg" class="recommend_topic_img"></span>
+                                    <span class="name">{{comments.comment_user.name}} <span class="badge badge-success">{{comments.comment_time|date:"Y-m-d H:m:i"}}</span></span></a>
+							</span>
+						{%endfor%}
+                    </div>
+                </li>
+			  {%endif%}
+              <li class="dropdown">
+				{%if request.session.username %}
+				<a href="/login/" id="text-color" class="dropdown-toggle " data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">当前用户:{{request.session.username}}<span class="caret"></span></a>
+				<ul class="dropdown-menu">              
+                    <li><a href="/logout/">注销</a></li>
+                </ul>
+				{%else%}
+                <a href="/login/" id="text-color" class="dropdown-toggle " data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">请登录<span class="caret"></span></a>
+				<ul class="dropdown-menu">              
+                    <li><a href="/login/">登录</a></li>
+                    <li><a href="/register/">注册</a></li>
+                    <li><a href="/logout/">注销</a></li>
+                </ul>
+				{%endif%}
+                
+              </li>
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </nav>
+    <!--导航条部分代码结束-->
+    {%block page-content%}
+	
+	{%endblock%}
+</body></html>

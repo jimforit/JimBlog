@@ -1,0 +1,61 @@
+{% extends "top.html"%}
+{%block page-content%}
+    
+    <!--用户注册-->
+    <div id="wrap">
+        <div class="container" id="main">
+            <div class="row">
+                <div class="panel panel-default panel-amend col-md-4 col-md-offset-3" id="limit-login-logout-width">
+                    <form class="panel-body" role="form" method="post" action="/register/">
+                        <h2 class="text-center">用户注册</h2>
+                        <div class="form-group">
+                            <label class="register_username_label_title">用户名</label>
+                            <div class="register_username_input">
+                                <input class="form-control" id="username" name="username" placeholder="字母、数字、下划线" type="text" required="" oninvalid="setCustomValidity(&#39;用户名不能为空！&#39;)" oninput="setCustomValidity(&#39;&#39;)">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="register_email_label_title">邮箱</label>
+                            <div class="register_email_input">
+                                <input class="form-control" id="email" name="email" type="email" placeholder="用于以后重置登录密码" required="">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="register_password_label_title">密码</label>
+                            <div class="register_password_input">
+                                <input class="form-control" id="password" name="password" type="password" required="" oninvalid="setCustomValidity(&#39;密码不能为空！&#39;)" oninput="setCustomValidity(&#39;&#39;)">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="register_repeat_password_label_title">密码(重复)</label>
+                            <div class="register_repeat_password_input">
+                                <input class="form-control" id="repeat_password" name="repeat_password" type="password" required="" oninvalid="setCustomValidity(&#39;重复密码不能为空！&#39;)" oninput="setCustomValidity(&#39;&#39;)">
+                            </div>
+                        </div>
+                        <div class="login-register">
+                            <button class="btn btn-success" type="submit">注册</button>
+                            <a class="btn btn-link" href="/login/">已有账户？</a>
+                            <p><span class="login-register-error">{{error_info}}</span></p>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+ <!--定义子模板可以继承的网站中间部分的内容块-->
+    <!--底部代码开始-->
+    <footer class="footer-color nav-footer-color" id="footer">
+        <div class="container clearfix">
+            <div class="text-muted pull-left">
+                   <p id="text-color">MyBlog</p>
+            </div>
+            <p class="muted credit pull-right" id="text-color">
+                ©<time>2016</time> Powered by Jim
+            </p>
+        </div>
+    </footer>
+    <!--底部代码结束-->
+    <script src="../static/jquery-2.1.1.min.js"></script>
+    <script src="../static/bootstrap.min.js"></script>
+    <!--定义子模板可以继承的js块-->
+{%endblock%}

@@ -1,0 +1,276 @@
+{%extends "top.html"%}
+{%block page-content%}
+    <!--网站中间部分内容开始-->
+    <div id="wrap">
+        <div class="container" id="main">
+            <!--左边内容-->
+            <div class="col-md-8" id="left">
+                     <!--页面左边的内容-->
+    <!--展示帖子相关内容的代码开始-->
+    <div class="panel panel-default panel-amend">
+        <div class="topic-heading panel-heading">
+            <div class="row">
+                <div class="col-md-10" id="limit-title-width">
+                    <p class="topic-breadcrumb">
+                        <a href="{% url 'category_article_page' article.category.pk %}">{{article.category.name}}</a>  ›   <a href="#">{{article.title}}</a>
+                    </p>
+				</div>
+				<div class="col-md-8" id="left1">
+                    <h4 class="list-post-title-in-topic">{{article.title}}</h4>
+				</div>
+				<div class="col-md-4" id="right1">
+						<span class="list-username pull-right"><a href="#">作者:{{article.auther.name}}</a></span>
+						<a href="http://www.aeflt.net/user/center/display/?uid=1" class="col-md-1 pull-right">
+							<img class="avatar-middle pull-right" src="../static/7c93baa4-056c-11e6-8212-000c2919e245.jpg" title="admin">
+						</a>
+				</div>
+				<div class="col-md-12" id="limit-title-width">
+                    <p class="list-meta">
+						{% if not in_likes_user %}
+						<a href="{%url 'likes_add_page' article.pk%}"><span id = "likes_hit" class="badge list-reply-count hidden-xs">点赞{{article.likes_user.count}}</span></a>
+						{%else%}
+						<a href="#"><span id = "likes_hitted" class="badge list-reply-count hidden-xs">点赞{{article.likes_user.count}}</span></a>
+						{%endif%}
+						<span class="label label-default list-meta-node"><a href="#">{{article.abstract}}</a></span>
+					    <span class="list-count">浏览次数:{{article.views}}</span>
+						<span class="list-time">{{article.create_time|date:"Y年m月d日"}}</span>
+				    </p>
+					
+                </div>
+				<div class="col-md-12" id="limit-title-width">
+					<span class="list-count">点赞{{article.likes_user.count}}人:{{users_likes}}</span>
+				</div>
+            </div>
+        </div>
+        <div class="panel-body">
+            <p></p><p>
+	<span style="font-size:16px;">{{article.body|safe}}</span>
+</p>
+<p>
+	<span style="font-size:16px;"><br>
+</span>
+</p>
+<p>
+	<span style="font-size:16px;"><br>
+</span>
+</p><p></p>
+        </div>
+    </div>
+    <!--展示帖子相关内容的代码结束-->
+    <!--展示评论代码开始-->
+    <div class="panel panel-default panel-amend" id="come_here">
+         <div class="panel-heading panel-heading-amend">
+            <p class="panel-title">评论[{{comment.pk}}]</p>
+        </div>
+        <ul class="list-group">
+            
+                
+                    <div class="list-group-item list-topic-item">
+                        <div class="row ">
+                            <a href="#" class="col-md-1 col-xs-2 col-sm-2" id="limit-comment-width">
+                                <img class="avatar-middle" src="../static/7c93baa4-056c-11e6-8212-000c2919e245.jpg" title="fiyahanxue">
+                            </a>
+                            <div class="col-xs-11">
+                                <div class="row">
+                                    <div class="reply-author col-sm-10">
+                                        <a href="#">{{comment.comment_user}}</a>
+                                        <span class="list-time">{{comment.comment_time|date:"Y-m-d H:m:i"}}</span>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-8" id="left2">
+                                            <p>{{comment.comment_content|safe}}</p>
+                                    </div>
+									<div class="col-md-4 pull-right" id="right2">
+                                            <p><label class="pull-right" onclick="showreplayform()"><a>点击回复</a></label>&nbsp&nbsp&nbsp&nbsp&nbsp</p>
+                                    </div>
+									
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+        </ul>
+		 <div class="panel-body" id="replay-form" style="display:none">
+            <div class="row">
+                
+                    <form class="form-horizontal" method="post" action="{%url 'comment_reply_page' comment.article.pk%}">
+                        <div class="form-group ">
+                            <label class="label-title">回复</label>
+                            <div class="col-article">
+                                <input type="text" class="form-control" name="reply_content" required="" value="@{{comment.comment_user}}:"></input>
+                            </div>
+                        </div>
+						<div class="form-group">
+							<button type="submit" class="btn btn-success btn-create">发表</button>
+						</div>
+					</form>
+			</div>
+		</div>
+    </div>
+	
+    <!--展示评论代码结束-->
+ <!--定义字模板可以继承的左边的内容块-->
+            </div>
+            <!--右边内容-->
+            <div class="col-md-4" id="right">
+                 <!--页面右边的内容-->
+    <!--引入版块切换的代码-->
+    <div class="panel panel-default panel-amend">
+    <div class="panel-heading panel-heading-amend">
+        <h3 class="panel-title">文章分类</h3>
+    </div>
+    <div class="panel-body">
+        {%for category in category_list%}
+            <a class="btn btn-default category_btn" href="{% url 'category_article_page' category.pk %}">{{category.name}}</a>
+        {%endfor%}
+    </div>
+</div>
+    
+    <!--引入精品帖子推荐排行的代码-->
+    <div class="panel panel-default panel-amend">
+    <div class="panel-heading panel-heading-amend">
+        <h3 class="panel-title">最受欢迎文章</h3>
+    </div>
+    <ul class="list-group">
+        
+            <!--限制只在精华帖子面板处显示最新的10条精华帖子-->
+            
+                <li class="list-group-item">
+					{%for articles in popular_article%}
+                    <div class="row row_min_height">
+                        <a href="#" class="recommend_topic"><img class="recommend_topic_img" src="../static/7c93baa4-056c-11e6-8212-000c2919e245.jpg" title="admin"></a>
+						<div class="recommend_topic_list">
+                            <a href="{%url 'article_detail_page' articles.pk%}" title="{{articles.title}}">{{articles.title}}</a>
+                        </div>	
+                    </div>
+					{%endfor%}
+                </li>
+    </ul>
+</div>
+    <!--引入浏览量排行代码-->
+    <div class="panel panel-default panel-amend">
+    <div class="panel-heading panel-heading-amend">
+        <h3 class="panel-title">浏览量排行榜</h3>
+    </div>
+    <ul class="list-group">
+        
+            <li class="list-group-item">
+			{%for articles in views_article%}
+                <div class="row row_min_height">
+                    <a href="http://www.aeflt.net/user/center/display/?uid=8" class="hot_topic"><img class="hot_topic_img" src="../static/default.jpg" title="潭州助理老师  瑾萱"></a>
+                    <div class="hot_topic_list">
+                        <a href="{%url 'article_detail_page' articles.pk%}" title="{{articles.title}}">{{articles.title}}</a>
+                    </div>
+                </div>
+			{%endfor%}
+            </li>
+    </ul>
+</div>
+    <!--引入最近加入的用户代码-->
+    <div class="panel panel-default panel-amend">
+    <div class="panel-heading panel-heading-amend">
+        <h3 class="panel-title">最近登录的用户</h3>
+    </div>
+    <div class="panel-body">
+	{%for users in latest_login_user%}
+		<span class="list-username">{{users.name}}</span>
+	{%endfor%}
+    </div>
+
+</div>
+    <!--引入论坛运行状态统计代码-->
+    <div class="panel panel-default panel-amend">
+    <div class="panel-heading panel-heading-amend">
+        <h3 class="panel-title">论坛运行状态</h3>
+    </div>
+   <div class="list-group">
+        <span class="list-group-item">当前用户总计:{{user_count}}</span>
+		<span class="list-group-item">当前在线用户:{{user_count}}</span>
+		<span class="list-group-item">当前文章总数:{{article_count}}</span>
+    </div>
+</div>
+
+    <!--引入友情链接的代码-->
+    <div class="panel panel-default panel-amend">
+    <div class="panel-heading panel-heading-amend">
+        <h3 class="panel-title">友情链接</h3>
+    </div>
+    <div class="panel-body">
+        
+            <a class="btn friendly_link" target="_blank" href="https://github.com/jimforit">Jim的GitHub首页</a>
+        
+            <a class="btn friendly_link" target="_blank" href="http://v3.bootcss.com/">Bootstrap文档</a>
+        
+            <a class="btn friendly_link" target="_blank" href="https://www.djangoproject.com/">Django官网</a>
+        
+    </div>
+</div>
+ <!--定义子模板可以继承的右边的内容块-->
+            </div>
+            <!--网站中间部分内容的左边内容结束-->
+        </div>
+    </div>
+    <!--网站中间部分内容结束-->
+ <!--定义子模板可以继承的网站中间部分的内容块-->
+    <!--底部代码开始-->
+    <footer class="footer-color nav-footer-color" id="footer">
+        <div class="container clearfix">
+            <div class="text-muted pull-left">
+                   <p id="text-color">JimBlog</p>
+            </div>
+            <p class="muted credit pull-right" id="text-color">
+                ©<time>2016</time> Powered by Jim
+            </p>
+        </div>
+    </footer>
+    <!--底部代码结束-->
+    <script src="../static/jquery-2.1.1.min.js"></script>
+    <script src="../static/bootstrap.min.js"></script>
+	<script src="../static/ckeditor/ckeditor.js"></script>
+	<script>CKEDITOR.replace( 'editor1' );</script>
+    <!--定义子模板可以继承的js块-->
+	<script type="text/javascript">
+
+$(function(){
+		$("#likes_hit").click(function(e){
+			anp(e);
+		})
+		$("#likes_hitted").click(function(e){
+			anpped(e);
+		})
+	
+});
+
+function anp(e){
+	var n=1;
+	var $i=$("<b>").text("+"+n);
+	var x=e.pageX,y=e.pageY;
+	$i.css({top:y-20,left:x,position:"absolute",color:"#E94F06"});
+	$("body").append($i);	
+	$i.animate({top:y-180,opacity:0,"font-size":"1.4em"},1500,function(){
+		$i.remove();
+	});
+	e.stopPropagation();
+}
+function anpped(e){
+	var n='您已经点过赞，请勿重复点赞';
+	var $i=$("<b>").text(n);
+	var x=e.pageX,y=e.pageY;
+	$i.css({top:y-20,left:x,position:"absolute",color:"#E94F06"});
+	$("body").append($i);	
+	$i.animate({top:y-180,opacity:0,"font-size":"1.4em"},1500,function(){
+		$i.remove();
+	});
+	e.stopPropagation();
+}
+$(document).ready(function() {
+   window.location.href = "#come_here";
+});
+function showreplayform(){
+        var obj = document.getElementById("replay-form");
+        obj.style.display = "block";
+		window.location.href = "#replay-form";
+}
+</script>
+<!--定义子模板可以继承的js块-->
+{%endblock%}

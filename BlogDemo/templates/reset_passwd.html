@@ -1,0 +1,157 @@
+{%extends "top.html"%}
+{%block page-content%}
+    <!--导航条部分代码结束-->
+    
+    <!--网站中间部分内容开始-->
+    <div id="wrap">
+        <div class="container" id="main">
+            <!--左边内容-->
+            <div class="col-md-8" id="left">
+                <div class="panel panel-default panel-amend">
+                    <div class="panel-heading panel-heading-amend">
+                        <h3 class="panel-title">申请重置密码</h3>
+                    </div>
+                    <div class="panel-body">
+                        <div class="row">
+                            <form class="form-horizontal" method="post" action="/retrievepasswd/"><input type="hidden" name="csrfmiddlewaretoken" value="7PzWeCf2jBaCH14nhZ9OUjKfKgniIoLw">
+                                <div class="form-group ">
+                                    <label class="label-title col_password_reset_label">账号</label>
+                                    <div class="col_password_reset">
+                                        <input type="text" class="form-control" name="username" placeholder="请填写您的账号名称" required="">
+                                    </div>
+                                </div>
+								<div class="form-group ">
+                                    <label class="label-title col_password_reset_label">邮箱</label>
+                                    <div class="col_password_reset">
+                                        <input type="email" class="form-control" name="email" placeholder="请填写您注册帐号时所留下的邮箱" required="">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <button type="submit" class="btn btn-success btn_password_reset">申请重置密码</button>
+                                    <span class="password_reset_error">{{error_msg}}</span>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--右边内容-->
+            <div class="col-md-4" id="right">
+                 <!--页面右边的内容-->
+    <!--引入版块切换的代码-->
+    <div class="panel panel-default panel-amend">
+    <div class="panel-heading panel-heading-amend">
+        <h3 class="panel-title">文章分类</h3>
+    </div>
+    <div class="panel-body">
+        {%for category in category_list%}
+            <a class="btn btn-default category_btn" href="{% url 'category_article_page' category.pk %}">{{category.name}}</a>
+        {%endfor%}
+    </div>
+</div>
+    
+    <!--引入精品帖子推荐排行的代码-->
+    <div class="panel panel-default panel-amend">
+    <div class="panel-heading panel-heading-amend">
+        <h3 class="panel-title">精华帖子</h3>
+    </div>
+    <ul class="list-group">
+        
+            <!--限制只在精华帖子面板处显示最新的10条精华帖子-->
+            
+                <li class="list-group-item">
+				{%for article in popular_article%}
+                    <div class="row row_min_height">
+					
+                        <a href="http://www.aeflt.net/user/center/display/?uid=1" class="recommend_topic"><img class="recommend_topic_img" src="../static/7c93baa4-056c-11e6-8212-000c2919e245.jpg" title="admin"></a>
+                        <div class="recommend_topic_list">
+                            <a href="{% url 'article_detail_page' article.pk %}" title="{{article.name}}">{{article.title}}</a>
+                        </div>
+                    </div>
+				{%endfor%}
+                </li>
+    </ul>
+</div>
+    <!--引入浏览量排行代码-->
+    <div class="panel panel-default panel-amend">
+    <div class="panel-heading panel-heading-amend">
+        <h3 class="panel-title">浏览量排行榜</h3>
+    </div>
+    <ul class="list-group">
+        
+            <li class="list-group-item">
+			{%for article in views_article%}
+                <div class="row row_min_height">
+                    <a href="http://www.aeflt.net/user/center/display/?uid=8" class="hot_topic"><img class="hot_topic_img" src="../static/default.jpg" title="潭州助理老师  瑾萱"></a>
+                    <div class="hot_topic_list">
+                        <a href="{% url 'article_detail_page' article.pk %}" title="{{article.title}}">{{article.title}}</a>
+                    </div>
+                </div>
+			{%endfor%}
+            </li>
+    </ul>
+</div>
+    <!--引入最近加入的用户代码-->
+    <div class="panel panel-default panel-amend">
+    <div class="panel-heading panel-heading-amend">
+        <h3 class="panel-title">最近登录的用户</h3>
+    </div>
+    <div class="panel-body">
+        
+            {%for users in latest_login_user%}
+				<span class="list-username">{{users.name}}</span>
+			{%endfor%}
+        
+    </div>
+</div>
+    <!--引入论坛运行状态统计代码-->
+    <div class="panel panel-default panel-amend">
+    <div class="panel-heading panel-heading-amend">
+        <h3 class="panel-title">论坛运行状态</h3>
+    </div>
+    <div class="list-group">
+        <span class="list-group-item">当前用户总计:{{user_count}}</span>
+		<span class="list-group-item">当前在线用户:{{user_count}}</span>
+		<span class="list-group-item">当前文章总数:{{article_count}}</span>
+    </div>
+</div>
+
+    <!--引入友情链接的代码-->
+    <div class="panel panel-default panel-amend">
+    <div class="panel-heading panel-heading-amend">
+        <h3 class="panel-title">友情链接</h3>
+    </div>
+    <div class="panel-body">
+        
+            <a class="btn friendly_link" target="_blank" href="https://github.com/jimforit">Jim的GitHub首页</a>
+        
+            <a class="btn friendly_link" target="_blank" href="http://v3.bootcss.com/">Bootstrap文档</a>
+        
+            <a class="btn friendly_link" target="_blank" href="https://www.djangoproject.com/">Django官网</a>
+        
+    </div>
+</div>
+ <!--定义子模板可以继承的右边的内容块-->
+            </div>
+            <!--网站中间部分内容的左边内容结束-->
+        </div>
+    </div>	
+    <!--网站中间部分内容结束-->
+ <!--定义子模板可以继承的网站中间部分的内容块-->
+    <!--底部代码开始-->
+    <footer class="footer-color nav-footer-color" id="footer">
+        <div class="container clearfix">
+            <div class="text-muted pull-left">
+                   <p id="text-color">JimBlog</p>
+            </div>
+            <p class="muted credit pull-right" id="text-color">
+                ©<time>2016</time> Powered by Jim
+            </p>
+        </div>
+    </footer>
+    <!--底部代码结束-->
+    <script src="../static/jquery-2.1.1.min.js"></script>
+    <script src="../static/bootstrap.min.js"></script>
+    <script src="../static/zh_CN.js"></script>
+</body></html>
+{%endblock%}
