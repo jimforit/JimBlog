@@ -58,7 +58,7 @@
 </span>
 </p>
 <p>
-	<span style="font-size:16px;"><br>
+	<span style="font-size:16px;"><div class="social-share" data-sites="weibo,qq,qzone,tencent,douban"></div><br>
 </span>
 </p><p></p>
         </div>
@@ -67,7 +67,9 @@
     <!--展示评论代码开始-->
     <div class="panel panel-default panel-amend">
         <div class="panel-heading panel-heading-amend">
-            <p class="panel-title">评论[{{comment_count}}]</p>
+            <p class="panel-title">评论[{{comment_count}}]
+			</p>
+			
         </div>
        <ul class="list-group">
             
@@ -268,8 +270,7 @@
     <!--底部代码结束-->
     <script src="../static/jquery-2.1.1.min.js"></script>
     <script src="../static/bootstrap.min.js"></script>
-	<script src="../static/ckeditor/ckeditor.js"></script>
-	<script>CKEDITOR.replace( 'editor1' );</script>
+	<script src="../static/dist/js/social-share.min.js"></script>
     <!--定义子模板可以继承的js块-->
 	<script type="text/javascript">
 
